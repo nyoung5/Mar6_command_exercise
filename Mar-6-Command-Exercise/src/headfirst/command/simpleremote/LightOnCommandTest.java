@@ -2,8 +2,10 @@ package headfirst.command.simpleremote;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -34,9 +36,15 @@ class LightOnCommandTest {
 	}
 
 	@Test
-	void testExecute() {
+	void testExecute() throws UnsupportedEncodingException {
+		String expected = "Light is on\n";
 		System.setOut(ps);
-		assertTrue("")
+		Light light = new Light();
+		LightOnCommand loc = new LightOnCommand(light);
+		loc.execute();
+		//String actual = new String(os.toByteArray(),"UTF_8"); //use os because it has the changes of ps
+		String actual = os.toString();
+		assertTrue(expected.equals(actual)); //os because its tostring is defined to return the string output
 	}
 
 }

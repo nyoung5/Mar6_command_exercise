@@ -13,7 +13,9 @@ import org.junit.jupiter.api.Test;
 
 
 class LightTest {
-
+	private PrintStream ps;
+	private ByteArrayOutputStream os;
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -24,8 +26,9 @@ class LightTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		PrintStream ps = new PrintStream(os);
+		os = new ByteArrayOutputStream();
+		ps = new PrintStream(os);
+		System.setOut(ps);
 		
 	}
 
@@ -35,12 +38,20 @@ class LightTest {
 
 	@Test
 	void testOff() {
-		fail("Not yet implemented");
+		String expected = "Light is off\n";
+		Light light = new Light();
+		light.off();
+		String actual = os.toString();
+		assertTrue(expected.equals(actual));
 	}
 
 	@Test
 	void testOn() {
-		fail("Not yet implemented");
+		String expected = "Light is on\n";
+		Light light = new Light();
+		light.on();
+		String actual = os.toString();
+		assertTrue(expected.equals(actual));
 	}
 
 }
